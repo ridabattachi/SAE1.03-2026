@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Bash - Projet Serveur Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar fixe -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Projet Serveur</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technologies.html">Technologies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="machine-virtuelle.html">Machine Virtuelle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilisateurs.html">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="prompt-bash.html">Prompt Bash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="serveur-nginx.html">Serveur Nginx</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ports.html">Ports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deploiements.html">Déploiements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="conclusion.html">Conclusion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Personnalisation du Prompt Bash</h1>
+                
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">4.1 Objectif</h2>
+                    <p>La personnalisation du prompt permet :</p>
+                    <ul>
+                        <li>D'identifier clairement l'utilisateur et la machine</li>
+                        <li>D'améliorer la lisibilité du terminal</li>
+                        <li>De réduire les erreurs en contexte multi-utilisateurs</li>
+                    </ul>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">4.2 Configuration</h2>
+                    <p>Pour chaque utilisateur, nous avons modifié le fichier ~/.bashrc :</p>
+                    
+                    <div class="command-block">
+                        # Connexion en tant qu'utilisateur<br>
+                        su - binomeg1_1<br><br>
+                        # Édition du fichier de configuration Bash<br>
+                        nano ~/.bashrc<br><br>
+                        # Ajout à la fin du fichier :<br>
+                        PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+                    </div>
+                    
+                    <h3 class="h4 mt-4">Explication de la syntaxe PS1</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>\[\033[01;32m\]</code></td>
+                                    <td>Code couleur (vert gras)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\u</code></td>
+                                    <td>Nom d'utilisateur</td>
+                                </tr>
+                                <tr>
+                                    <td><code>@</code></td>
+                                    <td>Caractère littéral</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\h</code></td>
+                                    <td>Nom d'hôte (hostname)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\[\033[00m\]</code></td>
+                                    <td>Réinitialisation de la couleur</td>
+                                </tr>
+                                <tr>
+                                    <td><code>:</code></td>
+                                    <td>Séparateur</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\[\033[01;34m\]</code></td>
+                                    <td>Code couleur (bleu gras)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\w</code></td>
+                                    <td>Chemin complet du répertoire courant</td>
+                                </tr>
+                                <tr>
+                                    <td><code>\$</code></td>
+                                    <td>Symbole $ (ou # pour root)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="h3 mb-3">4.3 Application des modifications</h2>
+                    <p>Pour appliquer immédiatement les modifications sans redémarrer le terminal :</p>
+                    
+                    <div class="command-block">
+                        source ~/.bashrc
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>Résultat :</strong> Le prompt affiche maintenant clairement l'utilisateur, la machine et le répertoire courant avec des couleurs distinctives.
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="h5 card-title">Exemple de prompt personnalisé</h3>
+                            <code class="d-block" style="color: #28a745;">binomeg1_1@ubuntu-dev-gr104</code>
+                            <code class="d-block" style="color: #007bff;">:/home/binomeg1_1$ </code>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">
+                        <strong>Réalisé par :</strong> Rida BATTACHI, Kenzy ABADA, Rayan HABLA &amp; Denys PIDDUBNYI
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">
+                        &copy; 2026 - Projet Serveur Web
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
+</body>
+</html>

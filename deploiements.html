@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déploiements - Projet Serveur Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar fixe -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Projet Serveur</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technologies.html">Technologies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="machine-virtuelle.html">Machine Virtuelle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilisateurs.html">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prompt-bash.html">Prompt Bash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="serveur-nginx.html">Serveur Nginx</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ports.html">Ports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="deploiements.html">Déploiements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="conclusion.html">Conclusion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Déploiement Automatique avec WebStorm</h1>
+                
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">7.1 Installation de SSH</h2>
+                    <p>Afin de permettre le déploiement des fichiers depuis la machine hôte vers la machine virtuelle, il a été nécessaire de mettre en place un service de communication sécurisé. Pour cela, le service SSH a été installé et activé sur la machine virtuelle, permettant les échanges à distance avec la machine hôte.</p>
+                    
+                    <h3 class="h5 mt-4">Installation du serveur SSH</h3>
+                    <div class="command-block">
+                        sudo apt install openssh-server -y
+                    </div>
+                    
+                    <h3 class="h5 mt-4">Démarrage du service SSH</h3>
+                    <div class="command-block">
+                        sudo systemctl start ssh
+                    </div>
+                    
+                    <h3 class="h5 mt-4">Activation au démarrage</h3>
+                    <div class="command-block">
+                        sudo systemctl enable ssh
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>SSH actif :</strong> Le service SSH est maintenant opérationnel et démarrera automatiquement au boot du système.
+                    </div>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">7.2 Redirection du port SSH</h2>
+                    <p>La redirection du port SSH n'ayant pas encore été configurée, il a été nécessaire de retourner dans les paramètres de redirection des ports de la machine virtuelle afin d'ajouter une règle spécifique permettant l'accès distant via SSH.</p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <strong>Paramètres de redirection SSH</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Valeur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nom</strong></td>
+                                        <td>SSH</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Protocole</strong></td>
+                                        <td>TCP</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Port hôte</strong></td>
+                                        <td>2222</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Port invité</strong></td>
+                                        <td>22</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">7.3 Configuration SFTP</h2>
+                    <p>Le déploiement des fichiers a ensuite été configuré dans WebStorm à l'aide d'une connexion SFTP. Cette configuration permet de transférer automatiquement les fichiers du projet depuis la machine hôte vers la machine virtuelle à chaque sauvegarde.</p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <strong>Paramètres de connexion SFTP</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Hôte</strong></td>
+                                        <td>localhost</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Port</strong></td>
+                                        <td>2222 (port SSH redirigé vers la machine virtuelle)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Utilisateur</strong></td>
+                                        <td>binomeg1_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Chemin distant</strong></td>
+                                        <td>/var/www/html (répertoire utilisé par Nginx)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>Fonctionnement :</strong> À chaque modification et sauvegarde d'un fichier dans WebStorm, celui-ci est automatiquement transféré vers le serveur Nginx via SFTP, permettant un développement rapide et efficace.
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="h3 mb-3">8. Test final</h2>
+                    <p>Un fichier index.html a été créé et automatiquement déployé via SFTP.</p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <strong>Fichier index.html de test</strong>
+                        </div>
+                        <div class="card-body">
+                            <code>
+                                &lt;!DOCTYPE html&gt;<br>
+                                &lt;html&gt;<br>
+                                &lt;head&gt;<br>
+                                &nbsp;&nbsp;&lt;title&gt;Test Déploiement&lt;/title&gt;<br>
+                                &lt;/head&gt;<br>
+                                &lt;body&gt;<br>
+                                &nbsp;&nbsp;&lt;h1&gt;Déploiement automatique réussi !&lt;/h1&gt;<br>
+                                &lt;/body&gt;<br>
+                                &lt;/html&gt;
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <h3 class="h5">Vérification de l'accès</h3>
+                    <div class="command-block">
+                        http://localhost:8080
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>Succès !</strong> L'accès via http://localhost:8080 affiche correctement la page, validant le fonctionnement complet de l'environnement de développement et du système de déploiement automatique.
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="h5 card-title">Chaîne de déploiement complète</h3>
+                            <p class="card-text">WebStorm (Machine hôte) → SFTP (Port 2222) → SSH → Machine Virtuelle → /var/www/html → Nginx (Port 80) → Redirection (Port 8080) → Navigateur</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">
+                        <strong>Réalisé par :</strong> Rida BATTACHI, Kenzy ABADA, Rayan HABLA &amp; Denys PIDDUBNYI
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">
+                        &copy; 2026 - Projet Serveur Web
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
+</body>
+</html>

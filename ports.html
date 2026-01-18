@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ports - Projet Serveur Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar fixe -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Projet Serveur</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technologies.html">Technologies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="machine-virtuelle.html">Machine Virtuelle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilisateurs.html">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prompt-bash.html">Prompt Bash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="serveur-nginx.html">Serveur Nginx</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="ports.html">Ports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deploiements.html">Déploiements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="conclusion.html">Conclusion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Redirection des Ports</h1>
+                
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">Contexte : Le mode NAT</h2>
+                    <p>Le mode NAT isole la machine virtuelle du réseau externe. La redirection de ports permet l'accès depuis la machine hôte vers les services hébergés dans la machine virtuelle.</p>
+                    
+                    <div class="alert alert-info">
+                        <strong>NAT (Network Address Translation) :</strong> Ce mode permet à la machine virtuelle d'accéder à Internet tout en restant isolée. Pour accéder aux services de la VM depuis l'hôte, il faut configurer des redirections de ports.
+                    </div>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">Configuration de la redirection</h2>
+                    <p>Pour accéder au serveur web Nginx depuis la machine hôte, nous avons configuré une redirection de port dans VirtualBox.</p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <strong>Paramètres de redirection HTTP</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Paramètre</th>
+                                        <th>Valeur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nom</strong></td>
+                                        <td>HTTP</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Protocole</strong></td>
+                                        <td>TCP</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>IP hôte</strong></td>
+                                        <td>127.0.0.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Port hôte</strong></td>
+                                        <td>8080</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>IP invité</strong></td>
+                                        <td>10.0.2.15</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Port invité</strong></td>
+                                        <td>80</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Explication :</strong> Cette configuration redirige toutes les requêtes HTTP arrivant sur le port 8080 de la machine hôte vers le port 80 de la machine virtuelle où Nginx écoute.
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="h3 mb-3">Test de la redirection</h2>
+                    <p>Nous avons maintenant accès au serveur web depuis la machine hôte en utilisant l'URL suivante :</p>
+                    
+                    <div class="command-block">
+                        http://localhost:8080
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>Résultat :</strong> La page d'accueil de Nginx s'affiche correctement, confirmant que la redirection de port fonctionne comme prévu.
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="h5 card-title">Schéma de fonctionnement</h3>
+                            <p class="card-text mb-2">Machine hôte (localhost:8080) → VirtualBox NAT → Machine virtuelle (10.0.2.15:80) → Nginx</p>
+                            <p class="card-text text-muted">Cette configuration permet de développer et tester des applications web dans un environnement isolé tout en y accédant facilement depuis la machine hôte.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">
+                        <strong>Réalisé par :</strong> Rida BATTACHI, Kenzy ABADA, Rayan HABLA &amp; Denys PIDDUBNYI
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">
+                        &copy; 2026 - Projet Serveur Web
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
+</body>
+</html>

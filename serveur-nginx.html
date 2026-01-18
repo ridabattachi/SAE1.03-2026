@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation et Configuration du Serveur Nginx - Projet Serveur Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar fixe -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Projet Serveur</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="technologies.html">Technologies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="machine-virtuelle.html">Machine Virtuelle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilisateurs.html">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prompt-bash.html">Prompt Bash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="serveur-nginx.html">Serveur Nginx</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ports.html">Ports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deploiements.html">Déploiements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="conclusion.html">Conclusion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Installation et Configuration du Serveur Nginx</h1>
+                
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">5.1 Choix de Nginx</h2>
+                    <p>Nginx a été choisi pour les raisons suivantes :</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3 class="h5 card-title">Légèreté</h3>
+                                    <p class="card-text">Consomme peu de ressources système comparé à d'autres serveurs web.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3 class="h5 card-title">Performances élevées</h3>
+                                    <p class="card-text">Gestion efficace des connexions simultanées et des requêtes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3 class="h5 card-title">Configuration simple</h3>
+                                    <p class="card-text">Fichiers de configuration clairs et bien structurés.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3 class="h5 card-title">Usage répandu</h3>
+                                    <p class="card-text">Très utilisé en production, excellente documentation disponible.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="h3 mb-3">5.2 Installation et activation</h2>
+                    
+                    <h3 class="h5">Installation</h3>
+                    <div class="command-block">
+                        sudo apt install nginx -y
+                    </div>
+                    
+                    <h3 class="h5 mt-4">Démarrage du service</h3>
+                    <div class="command-block">
+                        sudo systemctl start nginx
+                    </div>
+                    
+                    <h3 class="h5 mt-4">Activation au démarrage</h3>
+                    <div class="command-block">
+                        sudo systemctl enable nginx
+                    </div>
+                    
+                    <h3 class="h5 mt-4">Vérification du statut</h3>
+                    <div class="command-block">
+                        systemctl status nginx
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>Statut :</strong> Le service Nginx est actif et configuré pour démarrer automatiquement au boot du système.
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="h3 mb-3">5.3 Test local</h2>
+                    <p>Pour vérifier si notre serveur fonctionne correctement, nous effectuons un test local via le navigateur avec le lien suivant :</p>
+                    
+                    <div class="command-block">
+                        http://localhost
+                    </div>
+                    
+                    <div class="alert alert-success mt-3">
+                        <strong>Résultat :</strong> La page par défaut de Nginx s'affiche correctement, confirmant que le serveur web est opérationnel.
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="h5 card-title">Page par défaut de Nginx</h3>
+                            <p class="card-text">La page affiche le message "Welcome to nginx!" indiquant que le serveur est correctement configuré et en fonctionnement.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">
+                        <strong>Réalisé par :</strong> Rida BATTACHI, Kenzy ABADA, Rayan HABLA &amp; Denys PIDDUBNYI
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">
+                        &copy; 2026 - Projet Serveur Web
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
+</body>
+</html>
